@@ -2,8 +2,10 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
+using System.Windows.Forms;
 using GitHubNotifier.GithubApi;
 using Growl.Connector;
+using Application = Growl.Connector.Application;
 
 #endregion
 
@@ -16,6 +18,9 @@ namespace GitHubNotifier {
         }
 
         public static void Connect() {
+            if (!GrowlConnector.IsGrowlRunningLocally())
+                MessageBox.Show("Growl isn't running. :(", "Github Issue Notifier", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             var asm = Assembly.GetExecutingAssembly();
             Image icon;
 
